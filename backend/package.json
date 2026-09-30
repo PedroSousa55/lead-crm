@@ -1,0 +1,31 @@
+{
+  "name": "lead-crm-backend",
+  "version": "1.0.0",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test",
+    "test:db": "node scripts/checkCrud.js && node scripts/checkPipeline.js && node scripts/checkLocalidades.js && node scripts/checkBackup.js && node scripts/checkMetricas.js && node scripts/checkConfiguracoes.js",
+    "atualizar:municipios": "node scripts/atualizarMunicipios.js",
+    "normalizar:localidades": "node scripts/normalizarLocalidades.js",
+    "migrate:site": "node scripts/migrateSite.js",
+    "dev": "node --watch server.js",
+    "check:db": "node config/checkDatabase.js",
+    "migrate:prospeccao": "node scripts/migrateProspeccao.js",
+    "migrate:pipeline": "node scripts/migratePipeline.js",
+    "migrate:configuracoes": "node scripts/migrateConfiguracoes.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "csv-parse": "^7.0.2",
+    "dotenv": "^18.0.1",
+    "express": "^5.2.1",
+    "fflate": "^0.8.3",
+    "mysql2": "^3.24.4",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  }
+}

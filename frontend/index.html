@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lead CRM</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <script src="tema.js">
+</script>
+  <link rel="stylesheet" href="style.css">
+  <script src="data/municipios.js" defer>
+</script>
+  <script src="localidades.js" defer>
+</script>
+  <script src="seletorLocalidades.js" defer>
+</script>
+  <script src="instagram.js" defer>
+</script>
+  <script src="datas.js" defer>
+</script>
+  <script src="configuracaoPadrao.js" defer>
+</script>
+  <script src="configuracoes.js" defer>
+</script>
+  <script src="mensagemTemplates.js" defer>
+</script>
+  <script src="geradorMensagens.js" defer>
+</script>
+  <script src="whatsapp.js" defer>
+</script>
+  <script src="prospeccao.js" defer>
+</script>
+  <script src="pipeline.js" defer>
+</script>
+  <script src="interface.js" defer>
+</script>
+  <script src="navegacao.js" defer>
+</script>
+  <script src="script.js" defer>
+</script>
+  <script src="csv.js" defer>
+</script>
+  <script src="dadosBackup.js" defer>
+</script>
+  <script src="dashboard.js" defer>
+</script>
+</head>
+<body>
+<a href="#conteudo" class="pular-conteudo">Pular para o conteúdo</a>
+<aside id="barra-lateral" class="barra-lateral" data-aberto="false">
+<div class="marca">
+<svg viewBox="0 0 40 40" aria-hidden="true">
+<rect width="40" height="40" rx="10" fill="currentColor" opacity=".15"/>
+<path d="M12 10v21h19v-6H18V10z" fill="currentColor"/>
+</svg>
+<div>Lead CRM<small>Seu espaço de prospecção</small>
+</div>
+</div>
+<p class="nav-legenda">PRINCIPAL</p>
+<nav id="navegacao" aria-label="Áreas do CRM">
+<button id="nav-dashboard" type="button">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+<path d="M3 3h7v7H3z M14 3h7v7h-7z M3 14h7v7H3z M14 14h7v7h-7z"/>
+</svg>
+<span>Dashboard</span>
+</button>
+<button id="nav-lista" type="button">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+<path d="M4 5h16v15H4z M8 2v6 M16 2v6 M8 12h8 M8 16h5"/>
+</svg>
+<span>Leads</span>
+</button>
+<button id="nav-pipeline" type="button">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+<path d="M3 4h5v16H3z M10 4h5v11h-5z M17 4h4v7h-4z"/>
+</svg>
+<span>Pipeline</span>
+</button>
+<button id="nav-dados" type="button">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+<path d="M4 4h16v5H4z M6 9v11h12V9 M10 13h4"/>
+</svg>
+<span>Dados e backup</span>
+</button>
+<button id="nav-configuracoes" type="button">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+<path d="M4 6h16 M4 12h16 M4 18h16 M8 3v6 M16 9v6 M10 15v6"/>
+</svg>
+<span>Configurações</span>
+</button>
+</nav>
+<div class="sidebar-rodape">
+<p>Local. Simples. Seu.</p>
+<small>Lead CRM · versão 1.0</small>
+</div>
+</aside>
+<main id="conteudo" tabindex="-1">
+<header class="cabecalho-app">
+<div>
+<div class="sobretitulo">SEU ESPAÇO DE TRABALHO</div>
+<h1 id="pagina-titulo">Lead CRM</h1>
+<p id="pagina-descricao">Organize sua prospecção com clareza.</p>
+</div>
+<div class="cabecalho-controles">
+<button id="menu-mobile" type="button" class="secundario" aria-controls="navegacao" aria-expanded="false">Menu</button>
+<button id="alternar-tema" type="button" class="secundario">Modo escuro</button>
+</div>
+</header>
+<p id="config-status-global" role="status">
+</p>
+<section id="area-configuracoes" class="painel" aria-labelledby="titulo-configuracoes" hidden>
+<h2 id="titulo-configuracoes" class="sr-only">Configurações</h2>
+<form id="config-form" novalidate>
+<fieldset id="config-campos" disabled>
+<legend>Preferências comerciais e de uso</legend>
+<div class="config-bloco">
+<h3>Perfil comercial</h3>
+<div class="grade">
+<label>Nome do remetente<input id="config-nome_remetente" maxlength="100" aria-describedby="erro-config-nome_remetente" required>
+<span id="erro-config-nome_remetente" class="erro" aria-live="polite">
+</span>
+</label>
+<label>Profissão / apresentação<input id="config-profissao_remetente" maxlength="100" aria-describedby="erro-config-profissao_remetente" required>
+<span id="erro-config-profissao_remetente" class="erro" aria-live="polite">
+</span>
+</label>
+</div>
+</div>
+<div class="config-bloco">
+<h3>Demonstrações</h3>
+<p>Ative somente demos reais. O link não será incluído na primeira mensagem. Envie-o manualmente após a resposta.</p>
+<h4>Academia</h4>
+<div class="grade">
+<label>Demo disponível<select id="config-demo_academia_disponivel" aria-describedby="erro-config-demo_academia_disponivel">
+<option value="false">Não</option>
+<option value="true">Sim</option>
+</select>
+<span id="erro-config-demo_academia_disponivel" class="erro" aria-live="polite">
+</span>
+</label>
+<label>URL da demo<input id="config-demo_academia_url" type="text" inputmode="url" maxlength="2048" placeholder="https://..." aria-describedby="erro-config-demo_academia_url">
+<span id="erro-config-demo_academia_url" class="erro" aria-live="polite">
+</span>
+</label>
+</div>
+<h4>Clínica</h4>
+<div class="grade">
+<label>Demo disponível<select id="config-demo_clinica_disponivel" aria-describedby="erro-config-demo_clinica_disponivel">
+<option value="false">Não</option>
+<option value="true">Sim</option>
+</select>
+<span id="erro-config-demo_clinica_disponivel" class="erro" aria-live="polite">
+</span>
+</label>
+<label>URL da demo<input id="config-demo_clinica_url" type="text" inputmode="url" maxlength="2048" placeholder="https://..." aria-describedby="erro-config-demo_clinica_url">
+<span id="erro-config-demo_clinica_url" class="erro" aria-live="polite">
+</span>
+</label>
+</div>
+<h4>Estética</h4>
+<div class="grade">
+<label>Demo disponível<select id="config-demo_estetica_disponivel" aria-describedby="erro-config-demo_estetica_disponivel">
+<option value="false">Não</option>
+<option value="true">Sim</option>
+</select>
+<span id="erro-config-demo_estetica_disponivel" class="erro" aria-live="polite">
+</span>
+</label>
+<label>URL da demo<input id="config-demo_estetica_url" type="text" inputmode="url" maxlength="2048" placeholder="https://..." aria-describedby="erro-config-demo_estetica_url">
+<span id="erro-config-demo_estetica_url" class="erro" aria-live="polite">
+</span>
+</label>
+</div>
+</div>
+<div class="config-bloco">
+<h3>Prospecção</h3>
+<p>O envio pelo WhatsApp continua manual. As oito abordagens comerciais são preservadas; esta tela altera apenas seus dados variáveis.</p>
+</div>
+<div class="config-bloco">
+<h3>Preferências do CRM</h3>
+<div class="grade">
+<label>Leads por página<select id="config-leads_por_pagina" aria-describedby="erro-config-leads_por_pagina">
+<option value="25">25</option>
+<option value="50">50</option>
+<option value="100">100</option>
+</select>
+<span id="erro-config-leads_por_pagina" class="erro" aria-live="polite">
+</span>
+</label>
+<label>Tela inicial<select id="config-tela_inicial" aria-describedby="erro-config-tela_inicial">
+<option value="dashboard">Dashboard</option>
+<option value="lista">Lista</option>
+<option value="pipeline">Pipeline</option>
+</select>
+<span id="erro-config-tela_inicial" class="erro" aria-live="polite">
+</span>
+</label>
+</div>
+<p>A tela inicial será usada ao abrir ou recarregar o CRM. A quantidade por página pode ser alterada temporariamente na Lista.</p>
+</div>
+<div class="acoes">
+<button type="submit">Salvar configurações</button>
+<button id="config-padroes" type="button" class="secundario">Restaurar padrões</button>
+</div>
+</fieldset>
+</form>
+<p id="config-feedback" role="status">
+</p>
+</section>
+    <section id="area-dashboard" class="painel" aria-labelledby="titulo-dashboard" hidden>
+      <h2 id="titulo-dashboard" class="sr-only">Dashboard</h2>
+      <form id="dashboard-filtros" class="bloco">
+<div class="grade">
+        <label>Período<select id="dashboard-periodo">
+<option value="todo">Todo o período</option>
+<option value="hoje">Hoje</option>
+<option value="7d">Últimos 7 dias</option>
+<option value="30d">Últimos 30 dias</option>
+<option value="mes">Este mês</option>
+<option value="personalizado">Período personalizado</option>
+</select>
+</label>
+        <label id="dashboard-inicio-campo" hidden>Data inicial<input id="dashboard-inicio" type="date">
+</label>
+        <label id="dashboard-fim-campo" hidden>Data final<input id="dashboard-fim" type="date">
+</label>
+        <label>Nicho<select id="dashboard-nicho">
+<option value="">Todos os nichos</option>
+</select>
+</label>
+        <label>Estado<select id="dashboard-estado">
+</select>
+</label>
+        <label>Cidade<select id="dashboard-cidade" disabled>
+<option value="">Selecione o estado</option>
+</select>
+</label>
+      </div>
+<button type="submit">Atualizar dashboard</button>
+</form>
+      <p id="dashboard-aviso" role="status" aria-live="polite">
+</p>
+<p id="dashboard-periodo-info">
+</p>
+      <details>
+<summary>Como interpretar as métricas</summary>
+        <p>Total de leads, pipeline atual e follow-ups são estoque atual, sem filtro de período. Nicho, Estado e Cidade filtram todas as áreas do dashboard.</p>
+        <p>Contatados são leads únicos com contato registrado no período. Responderam são leads dessa mesma seleção com resposta registrada no mesmo contato, também no período. As taxas usam esse grupo de leads; contatos repetidos não aumentam a amostra.</p>
+        <p>O funil acumula etapas: Fechado implica Negociação, Interesse e Resposta. Em Todo o período, o estágio atual também serve como evidência para leads com histórico de contato. Sem histórico, o lead aparece apenas no estoque e pipeline. Por estratégia/variante, só os resultados dos respectivos contatos são usados; um lead pode aparecer em mais de uma abordagem.</p>
+        <p>O CRM não guarda todas as transições nem uma data própria de fechamento. Resultados editados podem mudar as métricas. Interessados, negociação e fechados representam evidências conhecidas, não a data em que mudaram de estágio.</p>
+      </details>
+      <div id="dashboard-cards" class="dashboard-cards">
+</div>
+<div id="dashboard-taxas" class="dashboard-cards">
+</div>
+      <div class="grade-paineis">
+<section class="bloco">
+<h3>Funil acumulado — leads únicos</h3>
+<p>Leads = base atual filtrada; etapas seguintes = grupo contatado no período.</p>
+<div id="dashboard-funil" class="dashboard-barras">
+</div>
+      </section>
+<section class="bloco">
+<h3>Pipeline — estágio atual</h3>
+<p>Distribuição atual, independente do período.</p>
+<div id="dashboard-pipeline" class="dashboard-barras">
+</div>
+      </section>
+</div>
+<section class="bloco">
+<h3>Follow-ups — pendências atuais</h3>
+<div id="dashboard-followups" class="acoes">
+</div>
+      </section>
+<section class="bloco">
+<h3>Desempenho observado por estratégia</h3>
+<p>Taxa e amostra por leads únicos. Menos de 10 contatados: amostra pequena. Sem atribuição automática de resultados de outra abordagem.</p>
+<div id="dashboard-estrategias" class="tabela-csv">
+</div>
+      <details>
+<summary>Desempenho por variante</summary>
+<div id="dashboard-variantes" class="tabela-csv">
+</div>
+</details>
+      </section>
+<div class="grade-paineis">
+<section class="bloco">
+<h3>Desempenho por nicho</h3>
+<div id="dashboard-nichos" class="tabela-csv">
+</div>
+      </section>
+<section class="bloco">
+<h3>Leads por Estado</h3>
+<div id="dashboard-estados" class="tabela-csv">
+</div>
+      </section>
+</div>
+<section class="bloco">
+<h3>Evolução da atividade</h3>
+<p id="dashboard-evolucao-info">
+</p>
+<p>Respostas contam leads únicos pela data de resposta em cada faixa, inclusive de contatos anteriores ao período. “Fechados por contato” conta leads com resultado Fechado agrupados pela data do contato, não pela data do fechamento. Um lead pode aparecer em faixas diferentes; não some essas faixas para obter leads únicos do período.</p>
+<div id="dashboard-evolucao" class="tabela-csv">
+</div>
+</section>
+    </section>
+    <div id="area-clientes" hidden>
+<div class="barra-leads">
+<button id="importar-abrir" type="button" class="secundario">Importar arquivo</button>
+<button id="novo-lead" type="button">+ Novo lead</button>
+</div>
+    <section class="painel resumo-operacional" aria-label="Resumo operacional">
+      <div id="indicadores" class="indicadores">
+</div>
+      <button id="preciso-contatar" type="button">Preciso contatar</button>
+      <p>Indicadores de todos os leads. Follow-ups são lembretes locais: nenhuma mensagem é enviada automaticamente.</p>
+    </section>
+    <p id="mensagem" role="status" aria-live="polite">
+</p>
+    <details id="importacao-painel" class="painel importacao">
+<summary id="titulo-csv">Importar leads · CSV ou Excel</summary>
+      <p>CSV (UTF-8, até 1 MB), XLSX e XLSM (até 5 MB). Até 1.000 registros por aba. Telefones repetidos e empresas com site serão ignorados.</p>
+      <label>Arquivo de leads<input id="csv-arquivo" type="file" accept=".csv,.xlsx,.xlsm">
+</label>
+      <label id="csv-aba-campo" hidden>Aba do Excel<select id="csv-aba">
+</select>
+</label>
+      <p id="csv-mensagem" role="status" aria-live="polite">
+</p>
+      <div id="csv-previa" hidden>
+        <h3>Prévia dos primeiros registros</h3>
+        <p id="csv-resumo">
+</p>
+        <div class="tabela-csv">
+<table>
+<thead>
+<tr>
+<th>Linha</th>
+<th>Empresa</th>
+<th>Telefone</th>
+<th>Possui site?</th>
+<th>Validação</th>
+</tr>
+</thead>
+<tbody id="csv-registros">
+</tbody>
+</table>
+</div>
+        <p>A prévia não grava dados. Duplicados serão conferidos no momento da importação.</p>
+        <button id="csv-importar" type="button">Importar clientes</button>
+      </div>
+      <button id="csv-cancelar" type="button" class="secundario" hidden>Cancelar</button>
+      <div id="csv-resultado" hidden>
+        <h3>Importação concluída</h3>
+        <p id="csv-totais">
+</p>
+        <ul id="csv-ignorados" aria-label="Linhas ignoradas">
+</ul>
+      </div>
+    </details>
+ <section aria-labelledby="titulo-lista">
+      <div class="cabecalho-lista">
+<h2 id="titulo-lista">Seus leads</h2>
+<button id="atualizar" type="button" class="secundario">Atualizar lista</button>
+</div>
+      <form id="filtros" class="painel">
+        <fieldset id="filtros-campos">
+        <label>Buscar empresa, telefone, cidade, estado ou nicho<input id="filtro-search" type="search" maxlength="255">
+</label>
+        <div class="grade">
+          <label>Status<select id="filtro-status">
+<option value="">Todos</option>
+<option value="nao_contatado">Não contatado</option>
+<option value="contatado">Aguardando resposta</option>
+<option value="respondeu">Respondeu</option>
+<option value="interessado">Interessado</option>
+<option value="negociacao">Negociação</option>
+<option value="fechado">Fechado</option>
+<option value="descartado">Não interessado</option>
+<option value="nao_contatar">Não contatar</option>
+</select>
+</label>
+          <label>Nicho<select id="filtro-nicho">
+<option value="">Todos os nichos</option>
+</select>
+</label>
+          <label>Estado<select id="filtro-estado">
+<option value="">Todos os estados</option>
+</select>
+</label>
+</div>
+<details class="filtros-extra">
+<summary>Mais filtros e visualização</summary>
+<div class="grade">
+          <label>Cidade<select id="filtro-cidade">
+<option value="">Todas as cidades</option>
+</select>
+</label>
+          <label>Follow-up<select id="filtro-followup">
+<option value="">Todos</option>
+<option value="hoje">Hoje</option>
+<option value="atrasados">Atrasados</option>
+<option value="proximos">Próximos</option>
+<option value="sem_followup">Sem follow-up</option>
+<option value="preciso_contatar">Preciso contatar</option>
+</select>
+</label>
+          <label>Possui Instagram<select id="filtro-instagram">
+<option value="">Todos</option>
+<option value="sim">Sim</option>
+<option value="nao">Não</option>
+</select>
+</label>
+          <label>Ordenar por<select id="filtro-sort">
+<option value="proximo_contato">Próximo contato</option>
+<option value="nome">Nome</option>
+<option value="cadastro">Data de cadastro</option>
+<option value="ultimo_contato">Último contato</option>
+</select>
+</label>
+          <label>Leads por página<select id="filtro-limit">
+<option>25</option>
+<option>50</option>
+<option>100</option>
+</select>
+</label>
+          <label>Visualização<select id="visao-pipeline">
+<option value="lista">Lista</option>
+<option value="pipeline">Pipeline</option>
+</select>
+</label>
+        </div>
+        </details>
+<div class="acoes">
+<button type="submit">Buscar</button>
+<button id="limpar-filtros" type="button" class="secundario">Limpar filtros</button>
+</div>
+        </fieldset>
+      </form>
+      <p id="filtros-ativos" class="filtros-ativos">
+</p>
+<p id="situacao-lista" role="status">Carregando clientes…</p>
+      <ul id="clientes" aria-label="Clientes cadastrados">
+</ul>
+      <div id="pipeline-colunas" class="pipeline" hidden>
+</div>
+      <p id="pipeline-ajuda" class="pipeline-ajuda">O pipeline agrupa os leads da página atual. Os totais por estágio consideram todos os resultados dos filtros.</p>
+      <div class="acoes paginacao">
+<button id="pagina-anterior" type="button" class="secundario">Página anterior</button>
+<span id="pagina-info">
+</span>
+<button id="pagina-proxima" type="button" class="secundario">Próxima página</button>
+</div>
+    </section>
+    </div>
+    <section id="area-dados" hidden class="painel" aria-labelledby="titulo-dados">
+      <h2 id="titulo-dados" class="sr-only">Dados e backup</h2>
+      <p>Exportação: arquivos para consulta e trabalho externo. Backup: JSON completo destinado à recuperação do CRM.</p>
+<div class="bloco">
+<h3>Exportação</h3>
+<div class="grade">
+        <label>Formato de exportação<select id="dados-formato">
+<option value="xlsx">XLSX</option>
+<option value="csv">CSV</option>
+</select>
+</label>
+        <label>Leads para exportar<select id="dados-escopo">
+<option value="todos">Exportar todos os leads</option>
+<option value="filtrados">Exportar resultados atuais</option>
+</select>
+</label>
+      </div>
+      <p>Resultados atuais incluem todas as páginas dos filtros aplicados. Clique em Buscar para aplicar uma busca antes de exportar.</p>
+      <div class="acoes">
+        <button id="dados-leads" type="button">Exportar leads</button>
+        <button id="dados-historico" type="button">Exportar histórico</button>
+</div>
+</div>
+<div class="bloco">
+<h3>Backup completo</h3>
+<p>Uma cópia de leads, histórico e configurações, para guardar com segurança.</p>
+<div class="acoes">
+<button id="dados-backup" type="button">Fazer backup completo</button>
+      </div>
+      <p id="dados-feedback" role="status" aria-live="polite">
+</p>
+</div>
+<div class="zona-cuidado">
+<h3>Restaurar backup</h3>
+<p>Zona de cuidado. A restauração substitui os dados atuais e exige uma cópia de segurança.</p>
+      <label>Arquivo de backup JSON (até 20 MB)<input id="backup-arquivo" type="file" accept=".json,application/json">
+</label>
+      <p id="backup-feedback" role="status" aria-live="polite">
+</p>
+      <div id="backup-previa" hidden>
+        <p id="backup-resumo">
+</p>
+        <p class="erro">Esta operação substituirá os dados comerciais atuais pelos dados contidos neste backup.</p>
+        <button id="backup-seguranca" type="button">Baixar backup dos dados atuais</button>
+        <p>Guarde esse arquivo antes de continuar. A autorização vale por 10 minutos; alterações nos dados exigem uma nova cópia.</p>
+        <label>
+<input id="backup-salvo" type="checkbox"> Confirmei que o backup dos dados atuais foi salvo</label>
+        <label>Digite RESTAURAR para confirmar<input id="backup-confirmacao" autocomplete="off">
+</label>
+        <button id="backup-restaurar" class="excluir" type="button" disabled>Confirmar restauração</button>
+      </div>
+      <button id="backup-cancelar" type="button" class="secundario" hidden>Cancelar restauração</button>
+</div>
+    </section>
+    <dialog id="cadastro-dialog" aria-labelledby="titulo-formulario">
+<div class="cabecalho-lista">
+<h2 id="titulo-formulario">Cadastrar cliente</h2>
+<button id="cadastro-fechar" type="button" class="secundario" aria-label="Fechar cadastro">Fechar</button>
+</div>
+      <p>Empresa e telefone são obrigatórios.</p>
+      <p id="cadastro-feedback" class="erro" role="status"></p><form id="formulario">
+        <fieldset id="campos">
+          <div class="grade">
+            <label>Nome da empresa *<input name="nome_empresa" required maxlength="255" autocomplete="organization" aria-describedby="erro-lead-nome_empresa">
+<span id="erro-lead-nome_empresa" class="erro" aria-live="polite">
+</span>
+</label>
+            <label>Telefone *<input name="telefone" type="tel" required maxlength="30" autocomplete="tel" aria-describedby="erro-lead-telefone">
+<span id="erro-lead-telefone" class="erro" aria-live="polite">
+</span>
+</label>
+            <label>Nicho<input name="nicho" maxlength="120" aria-describedby="erro-lead-nicho">
+<span id="erro-lead-nicho" class="erro" aria-live="polite">
+</span>
+</label>
+            <label>Estado<select id="cliente-estado" name="estado" aria-describedby="erro-lead-estado">
+</select>
+<span id="erro-lead-estado" class="erro" aria-live="polite">
+</span>
+</label>
+            <div>
+              <label>Pesquisar cidade<input id="cliente-cidade-busca" type="search" placeholder="Digite parte do nome" disabled>
+</label>
+              <label>Cidade<select id="cliente-cidade" name="cidade" disabled aria-describedby="erro-lead-cidade">
+<option value="">Selecione primeiro o estado</option>
+</select>
+<span id="erro-lead-cidade" class="erro" aria-live="polite">
+</span>
+</label>
+              <p id="cliente-localidade-aviso" role="status" aria-live="polite">
+</p>
+            </div>
+            <label>Instagram<input name="instagram" maxlength="255" placeholder="https://www.instagram.com/nomeempresa/ ou @nomeempresa" aria-describedby="erro-lead-instagram">
+<span id="erro-lead-instagram" class="erro" aria-live="polite">
+</span>
+</label>
+            <label>Possui site?<select name="possui_site" required aria-describedby="erro-lead-possui_site">
+              <option value="1">Sim</option>
+              <option value="0" selected>Não</option>
+            </select>
+<span id="erro-lead-possui_site" class="erro" aria-live="polite">
+</span>
+</label>
+            <label>Status<select name="status" aria-describedby="erro-lead-status">
+              <option value="nao_contatado">Não contatado</option>
+              <option value="contatado">Contatado / aguardando resposta</option>
+              <option value="respondeu">Respondeu</option>
+              <option value="interessado">Interessado</option>
+              <option value="sem_resposta">Sem resposta</option>
+              <option value="negociacao">Negociação</option>
+              <option value="fechado">Fechado</option>
+              <option value="descartado">Não interessado</option>
+              <option value="nao_contatar">Não contatar</option>
+            </select>
+<span id="erro-lead-status" class="erro" aria-live="polite">
+</span>
+</label>
+          </div>
+          <div class="grade">
+            <label>Próximo contato<input name="proximo_contato_em" type="datetime-local" aria-describedby="erro-lead-proximo_contato_em">
+<span id="erro-lead-proximo_contato_em" class="erro" aria-live="polite">
+</span>
+</label>
+            <label>Próxima ação<input name="proxima_acao" maxlength="1000" aria-describedby="erro-lead-proxima_acao">
+<span id="erro-lead-proxima_acao" class="erro" aria-live="polite">
+</span>
+</label>
+          </div>
+          <label>Gancho verificado (opcional)<textarea name="gancho_verificado" maxlength="1000" rows="2" placeholder="Uma observação factual, conferida manualmente" aria-describedby="erro-lead-gancho_verificado">
+</textarea>
+<span id="erro-lead-gancho_verificado" class="erro" aria-live="polite">
+</span>
+</label>
+          <label>Observações<textarea name="observacoes" maxlength="10000" rows="4" aria-describedby="erro-lead-observacoes">
+</textarea>
+<span id="erro-lead-observacoes" class="erro" aria-live="polite">
+</span>
+</label>
+          <div class="acoes rodape-form">
+            <button id="salvar" type="submit">Cadastrar cliente</button>
+            <button id="cancelar" class="secundario" type="button" hidden>Cancelar edição</button>
+          </div>
+        </fieldset>
+      </form>
+    </dialog>
+    <dialog class="drawer" id="detalhes" aria-labelledby="titulo-detalhes">
+      <div class="cabecalho-lista">
+<h2 id="titulo-detalhes">Detalhes do lead</h2>
+<form method="dialog">
+<button class="secundario">Fechar</button>
+</form>
+</div>
+<details open>
+<summary>Informações do lead</summary>
+      <dl id="dados-cliente">
+</dl>
+</details>
+      <section class="painel" aria-label="Follow-up manual">
+        <h3>Próximo contato</h3>
+        <label>Data e hora local<input id="followup-data" type="datetime-local">
+</label>
+        <label>Próxima ação<textarea id="followup-acao" maxlength="1000" rows="2">
+</textarea>
+</label>
+        <button id="followup-salvar" type="button">Salvar follow-up</button>
+        <p>Deixe a data vazia e salve para retirar o agendamento. Fechados e não contatar não entram na fila.</p>
+        <label>
+<input id="prospeccao-agendar" type="checkbox"> Salvar estes dados de follow-up ao marcar como contatado</label>
+      </section>
+      <section class="area-prospeccao" aria-labelledby="titulo-prospeccao">
+        <h3 id="titulo-prospeccao">Mensagem para WhatsApp</h3>
+        <p>Gere uma versão, revise e envie manualmente no WhatsApp.</p>
+        <p id="prospeccao-bloqueio" class="erro" role="status" hidden>Não contatar: este cliente não deve receber novas abordagens. Abrir o WhatsApp exige confirmação explícita.</p>
+        <div id="prospeccao-gancho-campo" hidden>
+          <p id="prospeccao-gancho-texto">
+</p>
+          <label>
+<input id="prospeccao-usar-gancho" type="checkbox"> Usar este gancho na mensagem</label>
+          <p>Confirme que é factual e apropriado para o cliente. A seleção vale para a próxima geração.</p>
+        </div>
+        <label>Estratégia<select id="prospeccao-estrategia">
+          <option value="automatica">Automática</option>
+          <option value="curiosidade">Curiosidade</option>
+
+          <option value="oportunidade">Oportunidade</option>
+          <option value="problema_sutil">Problema sutil</option>
+          <option value="visualizacao">Benefício / Visualização</option>
+          <option value="demonstracao">Demonstração</option>
+          <option value="pergunta">Pergunta</option>
+          <option value="autoridade">Autoridade leve</option>
+          <option value="direta">Direta</option>
+        </select>
+</label>
+        <button id="prospeccao-gerar" type="button" class="secundario">Gerar mensagem</button>
+        <p id="prospeccao-usada">
+</p>
+        <p>Cada estratégia usa uma mensagem revisada. Para experimentar outra abordagem, escolha Automática. Revise e edite antes de enviar.</p>
+        <label>Revise ou escreva sua mensagem<textarea id="prospeccao-mensagem" maxlength="10000" rows="7" aria-describedby="prospeccao-contador">
+</textarea>
+</label>
+        <p id="prospeccao-contador" aria-live="polite">0 caracteres</p>
+        <div class="acoes">
+          <button id="prospeccao-abrir" type="button" class="whatsapp">Abrir WhatsApp</button>
+          <button id="prospeccao-contatado" type="button" class="secundario">Marcar como contatado</button>
+        </div>
+        <p>Abrir o WhatsApp não registra contato. Depois de enviar, marque como contatado.</p>
+        <button id="prospeccao-nao-contatar" type="button" class="excluir">Marcar como não contatar</button>
+        <p id="prospeccao-aviso" role="status" aria-live="polite">
+</p>
+      </section>
+      <section aria-labelledby="titulo-historico">
+        <h3 id="titulo-historico">Histórico de prospecção</h3>
+        <p id="historico-aviso" role="status">
+</p>
+        <button id="historico-atualizar" type="button" class="secundario">Atualizar histórico</button>
+        <ul id="historico-lista">
+</ul>
+      </section>
+      
+    </dialog>
+  </main>
+</body>
+</html>
